@@ -6,7 +6,7 @@ For Authorization, visit https://urlshortener.everythingwithai.com/api/auth/goog
 
 <div align="center">
   <h3>
-    <a href="https://urlshortener.everythingwithai.com">
+    <a href="https://urlshortener.everythingwithai.com/api-docs">
       View Live Demo
     </a>
 
