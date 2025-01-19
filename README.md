@@ -3,6 +3,15 @@
 A scalable URL shortener service that provides advanced analytics, Google Sign-In authentication, and rate limiting capabilities. This API allows users to create and manage shortened URLs while tracking detailed usage analytics.
 
 <div align="center">
+  <h3>
+    <a href="https://urlshortener.everythingwithai.com">
+      View Live Demo
+    </a>
+    <span> | </span>
+    <a href="[https://urlshortener.everythingwithai.com/api-docs/](https://urlshortener.everythingwithai.com/api-docs/)">
+      API Documentation
+    </a>
+  </h3>
   <img src="screenshot.png" alt="Swagger UI Documentation" />
 </div>
 
