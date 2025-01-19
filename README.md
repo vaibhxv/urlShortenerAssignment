@@ -1,6 +1,8 @@
 # URL Shortener API with Advanced Analytics
 
 A scalable URL shortener service that provides advanced analytics, Google Sign-In authentication, and rate limiting capabilities. This API allows users to create and manage shortened URLs while tracking detailed usage analytics.
+<br>
+For Authorization, visit https://urlshortener.everythingwithai.com/api/auth/google and login with google account to get the token. Paste this token into the 'Authorization' header in postman.
 
 <div align="center">
   <h3>
