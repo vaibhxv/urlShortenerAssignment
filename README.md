@@ -8,7 +8,7 @@ A scalable URL shortener service that provides advanced analytics, Google Sign-I
       View Live Demo
     </a>
     <span> | </span>
-    <a href="[https://urlshortener.everythingwithai.com/api-docs/](https://urlshortener.everythingwithai.com/api-docs/)">
+    <a href="https://urlshortener.everythingwithai.com/api-docs/">
       API Documentation
     </a>
   </h3>
