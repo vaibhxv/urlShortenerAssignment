@@ -9,10 +9,8 @@ For Authorization, visit https://urlshortener.everythingwithai.com/api/auth/goog
     <a href="https://urlshortener.everythingwithai.com">
       View Live Demo
     </a>
-    <span> | </span>
-    <a href="https://urlshortener.everythingwithai.com/api-docs/">
-      API Documentation
-    </a>
+
+    
   </h3>
   <img src="screenshot.png" alt="Swagger UI Documentation" />
 </div>
