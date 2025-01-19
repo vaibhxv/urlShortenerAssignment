@@ -23,7 +23,7 @@ app.use(passport.initialize());
 
 setupPassport();
 
-app.use('/api-docs', swaggerDocs.serve, swaggerDocs.setup);
+app.use('/', swaggerDocs.serve, swaggerDocs.setup);
 app.use('/api', routes);
 
 
