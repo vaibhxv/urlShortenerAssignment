@@ -1,0 +1,284 @@
+openapi: 3.0.0
+info:
+  title: URL Shortener API
+  description: API for creating and managing short URLs with analytics.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: auth
+    description: Authentication-related operations.
+paths:
+  /api/shorten:
+    post:
+      summary: Create a new short URL
+      description: Generate a short URL for easy sharing of long URLs.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                longUrl:
+                  type: string
+                  description: The original URL to be shortened.
+                  example: https://example.com/some/long/url
+                customAlias:
+                  type: string
+                  description: A custom alias for the short URL (optional).
+                  example: my-custom-alias
+                topic:
+                  type: string
+                  description: A category under which the short URL is grouped (optional).
+                  example: activation
+      responses:
+        '200':
+          description: Short URL created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  shortUrl:
+                    type: string
+                    example: http://short.ly/abc123
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: 2025-01-19T10:00:00Z
+  /api/shorten/{alias}:
+    get:
+      summary: Redirect to the original URL
+      description: Redirect the user to the original long URL based on the short URL alias.
+      parameters:
+        - name: alias
+          in: path
+          required: true
+          description: The alias of the short URL.
+          schema:
+            type: string
+      responses:
+        '302':
+          description: Redirect to the original URL.
+  /api/analytics/{alias}:
+    get:
+      summary: Get analytics for a specific short URL
+      description: Retrieve detailed analytics for a short URL.
+      parameters:
+        - name: alias
+          in: path
+          required: true
+          description: The alias of the short URL.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Analytics retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalClicks:
+                    type: integer
+                    example: 123
+                  uniqueUsers:
+                    type: integer
+                    example: 45
+                  clicksByDate:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                          example: 2025-01-18
+                        clicks:
+                          type: integer
+                          example: 20
+                  osType:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        osName:
+                          type: string
+                          example: Windows
+                        uniqueClicks:
+                          type: integer
+                          example: 30
+                        uniqueUsers:
+                          type: integer
+                          example: 25
+                  deviceType:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        deviceName:
+                          type: string
+                          example: mobile
+                        uniqueClicks:
+                          type: integer
+                          example: 40
+                        uniqueUsers:
+                          type: integer
+                          example: 35
+  /api/analytics/topic/{topic}:
+    get:
+      summary: Get analytics for a topic
+      description: Retrieve analytics for all short URLs grouped under a specific topic.
+      parameters:
+        - name: topic
+          in: path
+          required: true
+          description: The topic to retrieve analytics for.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Analytics retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalClicks:
+                    type: integer
+                    example: 300
+                  uniqueUsers:
+                    type: integer
+                    example: 150
+                  clicksByDate:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                          example: 2025-01-18
+                        clicks:
+                          type: integer
+                          example: 50
+                  urls:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        shortUrl:
+                          type: string
+                          example: http://short.ly/xyz789
+                        totalClicks:
+                          type: integer
+                          example: 100
+                        uniqueUsers:
+                          type: integer
+                          example: 60
+  /api/analytics/overall:
+    get:
+      summary: Get overall analytics
+      description: Retrieve overall analytics for all short URLs created by the user.
+      responses:
+        '200':
+          description: Analytics retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalUrls:
+                    type: integer
+                    example: 50
+                  totalClicks:
+                    type: integer
+                    example: 1000
+                  uniqueUsers:
+                    type: integer
+                    example: 600
+                  clicksByDate:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                          example: 2025-01-18
+                        clicks:
+                          type: integer
+                          example: 80
+                  osType:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        osName:
+                          type: string
+                          example: macOS
+                        uniqueClicks:
+                          type: integer
+                          example: 400
+                        uniqueUsers:
+                          type: integer
+                          example: 250
+                  deviceType:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        deviceName:
+                          type: string
+                          example: desktop
+                        uniqueClicks:
+                          type: integer
+                          example: 700
+                        uniqueUsers:
+                          type: integer
+                          example: 500
+  /api/auth/google:
+    get:
+      tags:
+        - auth
+      summary: Login using Google
+      description: Redirects user to Google's OAuth for authentication.
+      responses:
+        '200':
+          description: Successfully authenticated with Google.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT Token is returned
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+  /api/auth/user:
+    get:
+      tags:
+        - auth
+      summary: Get the authenticated user details
+      description: Retrieve details of the currently authenticated user.
+      responses:
+        '200':
+          description: User details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The user's unique ID.
+                    example: 12345
+                  name:
+                    type: string
+                    description: The user's name.
+                    example: John Doe
+                  email:
+                    type: string
+                    description: The user's email address.
+                    example: john.doe@example.com
